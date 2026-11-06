@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Diet">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#06122b">
+<link href="css/styles.css" rel="stylesheet" />
+<title>Diet Planner</title>
+</head>
+<body>
+
+<section id="login" class="card hide">
+  <h2 id="lt"></h2>
+  <label><span data-i="user"></span><input id="lu" autocomplete="username" autocapitalize="none" autocorrect="off"></label>
+  <label><span data-i="pass"></span><input id="lp" type="password" autocomplete="current-password"></label>
+  <p class="err" id="le"></p>
+  <button class="p" id="lb" style="width:100%"></button>
+  <p class="mut" data-i="localnote"></p>
+  <button class="lgb" style="width:100%">EN / ع</button>
+</section>
+
+<div id="app" class="hide">
+<header>
+  <h1 data-i="app"></h1>
+  <div class="wchip" id="wchip"></div>
+  <button class="lgb" id="lgbtn" aria-label="Language"></button>
+  <select id="thsel" aria-label="Theme" style="width:auto"></select>
+  <button id="out" data-i="logout"></button>
+</header>
+<nav id="nav">
+  <button class="t on" data-v="ex"><i>🔁</i><span data-i="n_ex"></span></button>
+  <button class="t" data-v="tdee"><i>🔥</i><span data-i="n_tdee"></span></button>
+  <button class="t" data-v="plan"><i>🍽️</i><span data-i="n_plan"></span></button>
+  <button class="t" data-v="log"><i>✅</i><span data-i="n_log"></span></button>
+  <button class="t" data-v="prog"><i>📈</i><span data-i="n_prog"></span></button>
+  <button class="t" data-v="shop"><i>🛒</i><span data-i="n_shop"></span></button>
+  <button class="t" data-v="set"><i>⚙️</i><span data-i="n_set"></span></button>
+</nav>
+<main>
+
+<section id="v-ex" class="card">
+  <h2 data-i="ex_h"></h2>
+  <div class="row">
+    <label><span data-i="group"></span><select id="exg"></select></label>
+    <label><span data-i="orig"></span><select id="exa"></select></label>
+    <label><span data-i="qplan"></span><input id="exq" type="number" inputmode="decimal" value="60" min="0"></label>
+  </div>
+  <p class="mut" data-i="exnote"></p>
+  <div class="tw"><table id="ext"></table></div>
+</section>
+
+<section id="v-tdee" class="card hide">
+  <h2 data-i="tdee_h"></h2>
+  <div class="row">
+    <label><span data-i="age"></span><input id="ta" type="number" inputmode="numeric" value="36"></label>
+    <label><span data-i="weight"></span><input id="tw" type="number" inputmode="decimal" value="92"></label>
+    <label><span data-i="height"></span><input id="th" type="number" inputmode="decimal" value="170"></label>
+    <label><span data-i="sex"></span><select id="ts"><option value="m" data-i="male"></option><option value="f" data-i="female"></option></select></label>
+    <label><span data-i="bfp"></span><input id="tbf" type="number" inputmode="decimal" step="0.1" placeholder="29"></label>
+  </div>
+  <div class="row">
+    <label><span data-i="act"></span><select id="tact">
+      <option value="1.2" data-i="a1"></option><option value="1.375" data-i="a2"></option>
+      <option value="1.55" data-i="a3" selected></option><option value="1.725" data-i="a4"></option></select></label>
+    <label><span data-i="goal"></span><select id="tg"><option value="-500" data-i="cut"></option><option value="0" data-i="keep"></option><option value="300" data-i="bulk"></option></select></label>
+    <button class="p" id="tc" data-i="calc"></button>
+  </div>
+  <p class="mut" data-i="tnote"></p>
+  <div id="tout"></div>
+  <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+  <h2 data-i="prof_h"></h2>
+  <p class="mut" data-i="profnote"></p>
+  <div class="row">
+    <label><span data-i="age"></span><input id="pf_age" type="number" inputmode="numeric"></label>
+    <label><span data-i="height"></span><input id="pf_h" type="number" inputmode="decimal"></label>
+    <label><span data-i="weight"></span><input id="pf_w" type="number" inputmode="decimal"></label>
+    <label><span data-i="bfp0"></span><input id="pf_bf" type="number" inputmode="decimal" step="0.1"></label>
+  </div>
+  <div class="row">
+    <label>BMR (kcal)<input id="pf_bmr" type="number" inputmode="numeric"></label>
+    <label>TDEE (kcal)<input id="pf_tdee" type="number" inputmode="numeric"></label>
+    <label><span data-i="tcal"></span> (kcal)<input id="pf_tk" type="number" inputmode="numeric"></label>
+  </div>
+  <div class="row">
+    <label><span data-i="prot"></span> (g)<input id="pf_p" type="number" inputmode="numeric"></label>
+    <label><span data-i="fat"></span> (g)<input id="pf_f" type="number" inputmode="numeric"></label>
+    <label><span data-i="carb"></span> (g)<input id="pf_c" type="number" inputmode="numeric"></label>
+  </div>
+  <div class="row"><button class="p" id="pfsave" data-i="pf_save"></button><button class="x" id="pfdel" data-i="pf_del"></button></div>
+  <p class="err" id="pferr"></p>
+  <div id="pfout"></div>
+</section>
+
+<section id="v-plan" class="hide">
+  <div class="card noprint">
+    <div class="row">
+      <label><span data-i="plan"></span><select id="psel"></select></label>
+      <button id="pnew" data-i="newplan"></button>
+      <button id="pdel" class="x" data-i="delplan"></button>
+      <button class="p" id="ppdf" data-i="print"></button>
+    </div>
+    <div class="row">
+      <label><span data-i="pname"></span><input id="pname"></label>
+      <button id="padd" data-i="addmeal"></button>
+    </div>
+  </div>
+  <div class="card"><h2 id="ptitle"></h2><div id="pbar"></div><div id="pmeals"></div></div>
+</section>
+
+<section id="v-log" class="hide"></section>
+
+<section id="v-prog" class="hide">
+  <div class="card noprint">
+    <h2 data-i="prog_h"></h2>
+    <div class="row">
+      <label><span data-i="date"></span><input id="prd" type="date"></label>
+      <label><span data-i="weight"></span><input id="prw" type="number" inputmode="decimal" step="0.1"></label>
+      <label><span data-i="bfshort"></span><input id="prb" type="number" inputmode="decimal" step="0.1"></label>
+      <label><span data-i="waist"></span><input id="prwa" type="number" inputmode="decimal" step="0.1"></label>
+      <button class="p" id="pradd" data-i="addentry"></button>
+    </div>
+    <p id="prerr" class="err"></p>
+  </div>
+  <div class="card">
+    <div class="row noprint"><label><span data-i="metric"></span><select id="prm"><option value="w" data-i="weight"></option><option value="bf" data-i="bfshort"></option><option value="wa" data-i="waist"></option></select></label></div>
+    <div id="prchart"></div>
+  </div>
+  <div class="card"><h2 data-i="history"></h2><div class="tw" id="prlist"></div></div>
+</section>
+
+<section id="v-shop" class="hide">
+  <div class="card">
+    <h2 data-i="shop_h"></h2>
+    <div class="row noprint">
+      <label><span data-i="scope"></span><select id="gsc"></select></label>
+      <label id="gdl"><span data-i="days"></span><input id="gdays" type="number" inputmode="numeric" min="1" value="7"></label>
+      <button id="gclr" data-i="clearchk"></button>
+      <button class="p" id="gpr" data-i="print"></button>
+    </div>
+    <div id="glist"></div>
+  </div>
+</section>
+
+<section id="v-set" class="hide">
+  <div class="card">
+    <h2 data-i="lang"></h2>
+    <div class="themes" id="lgset"><button class="t" data-l="en">English</button><button class="t" data-l="ar">العربية</button></div>
+    <h3 data-i="theme"></h3>
+    <div class="themes" id="thbtn"></div>
+  </div>
+  <div class="card">
+    <h2 data-i="account"></h2>
+    <div class="row">
+      <label><span data-i="newuser"></span><input id="nu" autocapitalize="none"></label>
+      <label><span data-i="newpass"></span><input id="np" type="password"></label>
+      <button class="p" id="sacc" data-i="save"></button>
+    </div>
+    <p id="se"></p>
+  </div>
+  <div class="card">
+    <h2 data-i="water"></h2>
+    <div class="row">
+      <label><span data-i="wgoal"></span><input id="wgi" type="number" inputmode="numeric" min="1"></label>
+      <label><span data-i="wml"></span><input id="wmli" type="number" inputmode="numeric" min="50"></label>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i="cf_h"></h2>
+    <div class="row">
+      <label><span data-i="fname"></span><input id="cfn"></label>
+      <label><span data-i="cat"></span><select id="cfc"></select></label>
+    </div>
+    <div class="row">
+      <label><span data-i="kcal"></span><input id="cfk" type="number" inputmode="decimal"></label>
+      <label><span data-i="prot"></span><input id="cfp" type="number" inputmode="decimal"></label>
+      <label><span data-i="carb"></span><input id="cfcb" type="number" inputmode="decimal"></label>
+      <label><span data-i="fat"></span><input id="cff" type="number" inputmode="decimal"></label>
+      <button class="p" id="cfadd" data-i="add"></button>
+    </div>
+    <div id="cflist"></div>
+  </div>
+  <div class="card">
+    <h2 data-i="bk_h"></h2>
+    <p class="mut" data-i="bk_note"></p>
+    <div class="row">
+      <button class="p" id="bkdl" data-i="export"></button>
+      <button id="bksh" data-i="share"></button>
+      <label style="flex:1.5"><span data-i="import"></span><input id="imp" type="file" accept=".json,application/json"></label>
+    </div>
+    <p id="bkmsg"></p>
+  </div>
+  <div class="card">
+    <h2 data-i="wts_h"></h2>
+    <div id="wset"></div>
+    <br><button id="wreset" class="x" data-i="resetw"></button>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
